@@ -1,56 +1,57 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_str.c                                    :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bfresque <bfresque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/29 10:47:01 by bfresque          #+#    #+#             */
-/*   Updated: 2022/11/29 12:11:03 by bfresque         ###   ########.fr       */
+/*   Created: 2022/11/29 11:46:27 by bfresque          #+#    #+#             */
+/*   Updated: 2022/11/29 11:46:42 by bfresque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	ft_putstr(char *str)
+static long int	size(int n)
 {
-	int		i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
-}
-
-int	ft_print_str(char *str)
-{
-	int i;
-
-	i = 0;
-	if (str == NULL)
-	{
-		ft_putstr("(null)");
-		return (6);
-	}
-	while (*str)
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
-	return (i);
-}
-
-int	ft_print_nbr(int nb)
-{
-	int len;
-	char *num;
+	int	len;
 
 	len = 0;
-	num = ft_itoa(nb);
-	ft_print_str(num);
-	free(num);
-	return(len);
+	if (n <= 0)
+		len = 1;
+	while (n != 0)
+	{
+		n /= 10;
+		len++;
+	}
+	return (len);
 }
 
+char	*ft_itoa(int n)
+{
+	char			*str;
+	long int		i;
+	unsigned int	nb;
+
+	i = size(n);
+	str = malloc(sizeof(char) * i + 1);
+	if (!str)
+		return (NULL);
+	str[i] = '\0';
+	if (n == 0)
+		str[0] = '0';
+	if (n < 0)
+	{
+		nb = n * -1;
+		str[0] = '-';
+	}
+	else
+		nb = n;
+	while (nb > 0)
+	{
+		i--;
+		str[i] = '0' + (nb % 10);
+		nb /= 10;
+	}
+	return (str);
+}

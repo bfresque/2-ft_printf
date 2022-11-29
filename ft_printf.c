@@ -6,7 +6,7 @@
 /*   By: bfresque <bfresque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 14:32:11 by bfresque          #+#    #+#             */
-/*   Updated: 2022/11/29 11:23:38 by bfresque         ###   ########.fr       */
+/*   Updated: 2022/11/29 14:08:26 by bfresque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,26 @@ int	ft_print_char(char c)
 	return (1);
 }
 
-int ft_typeconvert(va_list parms,const char format)
+int ft_typeconvert(va_list args,const char format)
 {
 	int printlen;
 
 	printlen = 0;
-	if (format == "s")
-		printlen += ft_print_str(va_arg(parms, char));
-	if (format == "c")
-		printlen += ft_print_char(va_arg(parms, int));
-	if (format == "d" || format == "i")
-		printlen += ft_print_nbr(va_arg(parms, int));
-	if (format == "u")
-		printlen += ft_print_dec(va_arg(parms, unsigned int));
-	if (format == 'x' || format == "X")
-		printlen += ft_print_b16(va_arg(parms, unsigned int));
-	if (format == "p")
-		printlen += ft_print_point(va_arg(parms, long long int));
-	if (format == '%')
+	if (format == 's')
+		printlen += ft_print_str(va_arg(args, char *));
+	else if (format == 'c')
+		printlen += ft_print_char(va_arg(args, int));
+	else if (format == 'd' || format == 'i')
+		printlen += ft_print_nbr(va_arg(args, int));
+	else if (format == 'u')
+		printlen += ft_print_unsigned(va_arg(args, unsigned int));
+	/*
+	else if (format == 'x' || format == 'X')
+		printlen += ft_print_b16(va_arg(args, unsigned int));
+	else if (format == 'p')
+		printlen += ft_print_point(va_arg(args, long long int));
+	*/
+	else if (format == '%')
 		printlen += ft_print_char('%');
 	return (printlen);
 }
@@ -43,29 +45,31 @@ int ft_typeconvert(va_list parms,const char format)
 int	ft_printf(const char *format, ...)
 {
 	int 	i;
-	va_list	parms;
+	va_list	args;
 	int	printlen;
 
 	i = 0;
 	printlen = 0;
-	va_start(parms, format);
-	while(*format)
+	va_start(args, format);
+	while(format[i])
 	{
 		if (format[i] == '%')
 		{
-			printlen += ft_typeconvert(parms, format[i + 1]);
+			printlen += ft_typeconvert(args, format[i + 1]);
 			i++;
 		}
 		else
-		{
-			printlen += ft_typeconvert(parms, format[i]);
-		}
+			printlen += ft_typeconvert(args, format[i]);
+		i++;
 	}
-	va_end(parms);
+	va_end(args);
 	return (printlen);
 }
-
-int main ()
+ 
+#include <stdio.h>
+int main (void)
 {
-	ft_printf("%c \n", 'f');
+	ft_printf("%u \n", 123456);
+	printf("%u \n", 123456);
+	return (0);
 }
