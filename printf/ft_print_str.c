@@ -6,23 +6,11 @@
 /*   By: bfresque <bfresque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:47:01 by bfresque          #+#    #+#             */
-/*   Updated: 2022/11/29 12:11:03 by bfresque         ###   ########.fr       */
+/*   Updated: 2022/11/30 14:21:27 by bfresque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
-
-void	ft_putstr(char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
-}
+#include "ft_printf.h"
 
 int	ft_print_str(char *str)
 {
@@ -31,10 +19,10 @@ int	ft_print_str(char *str)
 	i = 0;
 	if (str == NULL)
 	{
-		ft_putstr("(null)");
+		write(1, "(null)", 6);
 		return (6);
 	}
-	while (*str)
+	while (str[i])
 	{
 		write(1, &str[i], 1);
 		i++;
@@ -42,15 +30,8 @@ int	ft_print_str(char *str)
 	return (i);
 }
 
-int	ft_print_nbr(int nb)
+int	ft_print_pcent(void)
 {
-	int len;
-	char *num;
-
-	len = 0;
-	num = ft_itoa(nb);
-	ft_print_str(num);
-	free(num);
-	return(len);
+	write(1, "%", 1);
+	return (1);
 }
-

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_unsigned.c                               :+:      :+:    :+:   */
+/*   ft_print_nbr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bfresque <bfresque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/29 13:23:38 by bfresque          #+#    #+#             */
-/*   Updated: 2022/11/29 13:37:17 by bfresque         ###   ########.fr       */
+/*   Created: 2022/11/29 11:46:27 by bfresque          #+#    #+#             */
+/*   Updated: 2022/11/30 14:24:56 by bfresque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-long int	ft_num_int(unsigned int n)
+long int	ft_size_num(int n)
 {
 	int	len;
 
@@ -27,38 +27,43 @@ long int	ft_num_int(unsigned int n)
 	return (len);
 }
 
-char	*ft_uitoa(unsigned int n)
+char	*ft_itoa(int n)
 {
-	char					*str;
-	long unsigned int		i;
+	char			*str;
+	long int		i;
+	unsigned int	nb;
 
-	i = ft_num_int(n);
+	i = ft_size_num(n);
 	str = malloc(sizeof(char) * i + 1);
 	if (!str)
 		return (NULL);
 	str[i] = '\0';
-	while (n > 0)
+	if (n == 0)
+		str[0] = '0';
+	if (n < 0)
+	{
+		nb = n * -1;
+		str[0] = '-';
+	}
+	else
+		nb = n;
+	while (nb > 0)
 	{
 		i--;
-		str[i] = '0' + (n % 10);
-		n /= 10;
+		str[i] = '0' + (nb % 10);
+		nb /= 10;
 	}
 	return (str);
 }
 
-int	ft_print_unsigned(unsigned int n)
+int	ft_print_nbr(int nb)
 {
-	int		printlen;
-	char	*num;
-	
-	printlen = 0;
-	if (n == 0)
-		printlen += write(1, "0", 1);
-	else
-	{
-		num = ft_uitoa(n);
-		printlen += ft_print_str(num);
-		free(num);
-	}
-	return (printlen);
+	int len;
+	char *num;
+
+	len = 0;
+	num = ft_itoa(nb);
+	len = ft_print_str(num);
+	free(num);
+	return(len);
 }

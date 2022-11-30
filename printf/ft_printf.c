@@ -6,11 +6,11 @@
 /*   By: bfresque <bfresque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 14:32:11 by bfresque          #+#    #+#             */
-/*   Updated: 2022/11/29 14:08:26 by bfresque         ###   ########.fr       */
+/*   Updated: 2022/11/30 15:47:43 by bfresque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 int	ft_print_char(char c)
 {
@@ -18,7 +18,7 @@ int	ft_print_char(char c)
 	return (1);
 }
 
-int ft_typeconvert(va_list args,const char format)
+int ft_typeconvert(va_list args, const char format)
 {
 	int printlen;
 
@@ -31,12 +31,10 @@ int ft_typeconvert(va_list args,const char format)
 		printlen += ft_print_nbr(va_arg(args, int));
 	else if (format == 'u')
 		printlen += ft_print_unsigned(va_arg(args, unsigned int));
-	/*
 	else if (format == 'x' || format == 'X')
-		printlen += ft_print_b16(va_arg(args, unsigned int));
+		printlen += ft_print_b16(va_arg(args, unsigned int), format);
 	else if (format == 'p')
-		printlen += ft_print_point(va_arg(args, long long int));
-	*/
+		printlen += ft_print_ptr(va_arg(args, unsigned long long int));
 	else if (format == '%')
 		printlen += ft_print_char('%');
 	return (printlen);
@@ -59,17 +57,18 @@ int	ft_printf(const char *format, ...)
 			i++;
 		}
 		else
-			printlen += ft_typeconvert(args, format[i]);
+			printlen += ft_print_char(format[i]);
 		i++;
 	}
 	va_end(args);
 	return (printlen);
 }
- 
-#include <stdio.h>
+
+/*#include <stdio.h>
 int main (void)
 {
-	ft_printf("%u \n", 123456);
-	printf("%u \n", 123456);
+	ft_printf("%d", ft_printf("%d", 123456789));
+	printf("%c", '\n');
+	printf("%d", printf("%d", 123456789));
 	return (0);
-}
+}*/
