@@ -6,7 +6,7 @@
 /*   By: bfresque <bfresque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 13:27:24 by bfresque          #+#    #+#             */
-/*   Updated: 2022/11/30 14:26:04 by bfresque         ###   ########.fr       */
+/*   Updated: 2022/12/02 10:22:56 by bfresque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	ft_ptr_len(unsigned long long nb)
 	i = 0;
 	while (nb != 0)
 	{
-		i++;
 		nb = nb / 16;
+		i++;
 	}
 	return (i);
 }
@@ -32,6 +32,10 @@ void	ft_ptr_base(unsigned long long nb)
 		ft_ptr_base(nb / 16);
 		ft_ptr_base(nb % 16);
 	}
+	else if (nb <= 9)
+		ft_print_char(nb + '0');
+	else
+		ft_print_char(nb - 10 + 'a');
 }
 
 int	ft_print_ptr(unsigned long long ptr)
@@ -39,11 +43,11 @@ int	ft_print_ptr(unsigned long long ptr)
 	int	printlen;
 
 	printlen = 0;
-	printlen += write(1, "0x", 2);	
 	if (ptr == 0)
-		printlen += write(1, "0", 1);
+		printlen += write(1, "(nil)", 5);
 	else
 	{
+		printlen += write(1, "0x", 2);
 		ft_ptr_base(ptr);
 		printlen += ft_ptr_len(ptr);
 	}

@@ -6,7 +6,7 @@
 /*   By: bfresque <bfresque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:46:27 by bfresque          #+#    #+#             */
-/*   Updated: 2022/11/30 14:24:56 by bfresque         ###   ########.fr       */
+/*   Updated: 2022/12/02 10:21:35 by bfresque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ char	*ft_itoa(int n)
 
 int	ft_print_nbr(int nb)
 {
-	int len;
-	char *num;
+	int		len;
+	char	*num;
 
 	len = 0;
 	num = ft_itoa(nb);
 	len = ft_print_str(num);
 	free(num);
-	return(len);
+	return (len);
 }

@@ -6,7 +6,7 @@
 /*   By: bfresque <bfresque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 13:23:38 by bfresque          #+#    #+#             */
-/*   Updated: 2022/11/30 14:49:11 by bfresque         ###   ########.fr       */
+/*   Updated: 2022/12/02 10:21:19 by bfresque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_print_unsigned(unsigned int n)
 {
 	int		printlen;
 	char	*num;
-	
+
 	printlen = 0;
 	if (n == 0)
 		printlen += write(1, "0", 1);

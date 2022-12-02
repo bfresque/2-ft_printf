@@ -6,25 +6,24 @@
 /*   By: bfresque <bfresque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 11:54:50 by bfresque          #+#    #+#             */
-/*   Updated: 2022/11/30 17:12:08 by bfresque         ###   ########.fr       */
+/*   Updated: 2022/12/02 10:27:49 by bfresque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int ft_hex_len(int nb)
+int	ft_hex_len(unsigned int nb)
 {
 	int	len;
 
 	len = 0;
 	while (nb != 0)
 	{
-		len++;
 		nb = nb / 16;
+		len++;
 	}
 	return (len);
 }
-
 
 void	ft_putnbr_hex(unsigned int nb, const char format)
 {

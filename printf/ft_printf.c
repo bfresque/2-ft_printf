@@ -6,7 +6,7 @@
 /*   By: bfresque <bfresque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 14:32:11 by bfresque          #+#    #+#             */
-/*   Updated: 2022/11/30 15:47:43 by bfresque         ###   ########.fr       */
+/*   Updated: 2022/12/02 10:22:35 by bfresque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	ft_print_char(char c)
 	return (1);
 }
 
-int ft_typeconvert(va_list args, const char format)
+int	ft_typeconvert(va_list args, const char format)
 {
-	int printlen;
+	int	printlen;
 
 	printlen = 0;
 	if (format == 's')
@@ -42,14 +42,14 @@ int ft_typeconvert(va_list args, const char format)
 
 int	ft_printf(const char *format, ...)
 {
-	int 	i;
+	int		i;
 	va_list	args;
-	int	printlen;
+	int		printlen;
 
 	i = 0;
 	printlen = 0;
 	va_start(args, format);
-	while(format[i])
+	while (format[i])
 	{
 		if (format[i] == '%')
 		{
@@ -64,11 +64,12 @@ int	ft_printf(const char *format, ...)
 	return (printlen);
 }
 
-/*#include <stdio.h>
+/*
+#include <stdio.h>
 int main (void)
 {
-	ft_printf("%d", ft_printf("%d", 123456789));
-	printf("%c", '\n');
-	printf("%d", printf("%d", 123456789));
+	int a;
+	
+	printf("%d", printf("%p", a));
 	return (0);
 }*/
